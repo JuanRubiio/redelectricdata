@@ -1,6 +1,20 @@
-from typing import Optional
+from os import access
+from fastapi import APIRouter, Depends, HTTPException
+import crud, database
+from auth.auth_bearer import JWTBearer
+from auth.auth_handler import decodeJWT, signJWT
 
+api_router = APIRouter()
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@api_router.get("/token", tags=["dev"])
+async def getToken() -> dict:
+    access_token = signJWT("juanignaciojimenezgutierrez@gmail.com")
+    return access_token
+
+@api_router.get("/consumo", tags=["consumo"])
+def getConsumo() -> dict:
+    with database.getSession() as db:
+        consumo = crud.getConsumo(db)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not consumo")
+
