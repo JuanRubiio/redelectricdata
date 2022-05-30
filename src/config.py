@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     app_description:str = ''
     app_version:str = '0.0.1'
     app_host:str = '0.0.0.0'
-    app_port:int = 80
+    app_port:int = 8000
     add_deamon:bool = True
     app_log_level:str = 'info'
     app_debug_mode:bool=True
