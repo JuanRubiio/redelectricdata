@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.schema import MetaData
 import contextlib
 import urllib.parse
-import config
+from .config import config
 
 settings = config.get_settings()
 
