@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     DB_PASSWORD:str = ''
     
     env_root_path_local:str = ''
-    env_root_path_dev:str = '/redelectricdata'
+    env_root_path_dev:str = ''
     
     class Config:
         env_file = '.env'
