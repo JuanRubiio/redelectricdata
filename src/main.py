@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-import router
-import config
+from .router import router
+from .config import config
 
 settings = config.get_settings()
 env_root_path = settings.env_root_path_local if settings.ENV_VAR == 'local' else settings.env_root_path_dev
