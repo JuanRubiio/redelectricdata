@@ -1,7 +1,6 @@
 from os import access
 from fastapi import APIRouter, Depends, HTTPException
-from .crud import crud
-from .database import database
+from . import crud, database
 from auth.auth_bearer import JWTBearer
 from auth.auth_handler import decodeJWT, signJWT
 
