@@ -1,7 +1,6 @@
 asyncpg==0.21.0
 databases==0.4.1
 psycopg2-binary==2.8.6
-starlette==0.13.6
 websockets==8.1
 uvloop
 anyio==3.4.0
