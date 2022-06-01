@@ -18,7 +18,7 @@ class JWTBearer(HTTPBearer):
         credentials: HTTPAuthorizationCredentials = await super(JWTBearer, self).__call__(request)
         if not credentials:
             raise HTTPException(status_code=403, detail="Invalid authorization code")
-        elif not credentials.schema == "Bearer":
+        elif not credentials.scheme == "Bearer":
             raise HTTPException(status_code=403, detail="Invalid authorization scheme")
         else:
             jwt_verification = self.verify_jwt(credentials.credentials)
@@ -31,6 +31,9 @@ class JWTBearer(HTTPBearer):
             elif jwt_verification == JWT_STATUS.JWT_NOTAUSER:
                 HTTPException(status_code=401, detail="Invalid user")
             
+    def check_user_db(self, user_id):
+        return True
+    
     def verify_jwt(self, jwtoken:str) -> bool:
         try: payload = decodeJWT(jwtoken)
         except:payload=None

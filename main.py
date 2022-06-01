@@ -15,6 +15,10 @@ app_config = {
     'version': settings.app_version,
     'docs_url':'/docs',
     'redocs_url':'/redocs',
+    'contact':{
+        'name':settings.dev_name,
+        'email':settings.dev_email,   
+    },
     
 }
 

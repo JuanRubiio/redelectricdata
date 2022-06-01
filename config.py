@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     app_description:str = ''
     app_version:str = '0.0.1'
     app_host:str = '0.0.0.0'
-    app_port:int = 8000
+    app_port:int = 80
     add_deamon:bool = True
     app_log_level:str = 'info'
     app_debug_mode:bool=True
@@ -33,7 +33,12 @@ class Settings(BaseSettings):
     DB_DATABASE:str = 'tfmdb1'
     DB_USER:str = 'adm'
     DB_PASSWORD:str = 'Pa$$w0rd01'
-
+    
+    ERROR_500 = 500
+    ERROR_404 = 404
+    
+    dev_name = 'Juan Ignacio Jiménez Gutiérrez'
+    dev_email = 'juan12_rubio@hotmail.com'
 
 @lru_cache()
 def get_settings() -> BaseSettings:
