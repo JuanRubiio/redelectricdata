@@ -5,9 +5,8 @@ from functools import lru_cache
 log = logging.getLogger('uvicorn')
 
 class Settings(BaseSettings):
-    ENV_VAR: str = ''
-    
-    app_name:str = ''
+
+    app_name:str = 'ConsumoElectrico'
     app_description:str = ''
     app_version:str = '0.0.1'
     app_host:str = '0.0.0.0'
@@ -17,23 +16,24 @@ class Settings(BaseSettings):
     app_debug_mode:bool=True
     
     application_id = 'redelectricdata_dev'
-    
-    JWT_SECRET: str = ''
-    JWT_ALGORITHM: str = ''
-    
+
     db_driver:str = "{ODBC Driver 17 for SQL Server}"
-    
-    DB_HOST:str = ''
-    DB_PORT:str = ''
-    DB_DATABASE:str = ''
-    DB_USER:str = ''
-    DB_PASSWORD:str = ''
     
     env_root_path_local:str = ''
     env_root_path_dev:str = ''
     
-    class Config:
-        env_file = '.env'
+    ENV_VAR:str = 'dev'
+
+    JWT_SECRET:str = '024646D38F6F23A5E48888A1BC01E04A66D620FCB380B64107F0F7F2EBD5FAEF'
+    JWT_ALGORITHM:str = 'HS256'
+
+    #TENANT INFO
+    DB_HOST:str = 'tfmdb1.database.windows.net'
+    DB_PORT:str = '1433'
+    DB_DATABASE:str = 'tfmdb1'
+    DB_USER:str = 'adm'
+    DB_PASSWORD:str = 'Pa$$w0rd01'
+
 
 @lru_cache()
 def get_settings() -> BaseSettings:
