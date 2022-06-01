@@ -1,38 +1,24 @@
-from typing import List
-import databases
-import sqlalchemy
-from sqlalchemy import create_engine
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import sessionmaker
-from fastapi import FastAPI, status
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from pydantic import BaseModel
-import os
-import urllib
-
-#DATABASE_URL = "sqlite:///./test.db"
-DB_HOST = 'tfmdb1.database.windows.net'
-DB_PORT = '1433'
-DB_DATABASE = 'tfmdb1'
-DB_USER = 'adm'
-DB_PASSWORD = 'Pa$$w0rd01'
-db_driver:str = "{ODBC Driver 17 for SQL Server}"
+import uvicorn
+import router, config
 
 
-conn = f"""Driver={db_driver};Server=tcp:{DB_HOST},{DB_PORT};Database={DB_DATABASE};Uid={DB_USER};Pwd={DB_PASSWORD};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"""
+settings = config.get_settings()
+env_root_path = settings.env_root_path_local if settings.ENV_VAR == 'local' else settings.env_root_path_dev
 
-params = urllib.parse.quote_plus(conn)
-conn_str = 'mssql+pyodbc:///?odbc_connect={}'.format(params)
+app_config = {
+    
+    'title': settings.app_name,
+    'description': settings.app_description,
+    'version': settings.app_version,
+    'docs_url':'/docs',
+    'redocs_url':'/redocs',
+    
+}
 
-engine_midb_dev = create_engine(conn_str, echo=True)
-Session_mi_dev = sessionmaker(autocommit=False, autoflush=False, bind=engine_midb_dev)
-
-Base_data = automap_base()
-Base_data.prepare(engine_midb_dev, reflect =True, schema='dbo')
-
-
-app = FastAPI(title="REST API using FastAPI PostgreSQL Async EndPoints")
+app = FastAPI(**app_config)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -42,6 +28,9 @@ app.add_middleware(
 )
 app.add_middleware(GZipMiddleware)
 
-@app.get("/hello/", status_code = status.HTTP_200_OK)
-async def read_notes(skip: int = 0, take: int = 20):
-    return 'HELLO'
+app.include_router(router.api_router, prefix='/api',)
+if env_root_path:app.mount(env_root_path, app)
+
+if __name__=="__main__":
+    uvicorn.run("main:app", host=settings.app_host, port=settings.app_port, reload=settings.app_deamon, log_level=settings.app_log_level, debug=settings.app_debug_mode)
+
