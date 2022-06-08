@@ -1,7 +1,6 @@
 from os import access
 from fastapi import APIRouter, Depends, HTTPException
-import crud 
-import database
+import crud, database, schema
 from auth.auth_bearer import JWTBearer
 from auth.auth_handler import decodeJWT, signJWT
 from fastapi import status
@@ -40,3 +39,9 @@ def getConsumoBySector(sector:str, skip:int, limit:int, accese_token:str = Depen
         if consumo: return consumo
         else: raise HTTPException(status_code=404, detail="Not consumo")
 
+'''@api_router.get("/prediccionElectrica", tags=["electricidad"], dependencies=[Depends(JWTBearer())])
+def getPrediccionElectrica(data:schema.PrediccionElectrica, accese_token:str = Depends(JWTBearer())) -> dict:
+    prediccion = crud.predictLuz(data)
+    if prediccion: return prediccion
+    else: raise HTTPException(status_code=404, detail="Not prediccion")
+'''

@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
-import model, config
+import model, config, schema
+#from keras import models, predict
 
 settings = config.get_settings()
 
@@ -22,3 +23,6 @@ def getUserByEmail(db:Session, email:str):
     try:
         return db.query(model.USER).filter(model.USER.email == email).first()
     except:return settings.ERROR_500
+    
+#def predictLuz(datos:schema.PrediccionElectrica):
+ #   model = models.load_model("modelo_luz.h5")
