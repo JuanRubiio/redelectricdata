@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM:str = 'HS256'
 
     #TENANT INFO
-    DB_HOST:str = 'tfmdb1.database.windows.net'
+    DB_HOST:str = 'tfmdb.database.windows.net'
     DB_PORT:str = '1433'
     DB_DATABASE:str = 'tfmdb1'
     DB_USER:str = 'adm'
