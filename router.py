@@ -39,9 +39,8 @@ def getConsumoBySector(sector:str, skip:int, limit:int, accese_token:str = Depen
         if consumo: return consumo
         else: raise HTTPException(status_code=404, detail="Not consumo")
 
-'''@api_router.get("/prediccionElectrica", tags=["electricidad"], dependencies=[Depends(JWTBearer())])
-def getPrediccionElectrica(data:schema.PrediccionElectrica, accese_token:str = Depends(JWTBearer())) -> dict:
-    prediccion = crud.predictLuz(data)
+@api_router.get("/prediccionElectrica", tags=["electricidad"], dependencies=[Depends(JWTBearer())])
+def getPrediccionElectrica(co2:float, gas:float, brent:float, accese_token:str = Depends(JWTBearer())) -> dict:
+    prediccion = crud.predictLuz(co2, gas, brent)
     if prediccion: return prediccion
     else: raise HTTPException(status_code=404, detail="Not prediccion")
-'''
