@@ -2,7 +2,6 @@ asyncpg==0.21.0
 databases==0.4.1
 psycopg2-binary==2.8.6
 websockets==8.1
-uvloop
 anyio==3.4.0
 asgiref==3.4.1
 attrs==21.2.0
@@ -40,3 +39,6 @@ typing-extensions==4.0.0
 urllib3==1.26.7
 uvicorn==0.15.0
 keras
+tensorflow
+pandas
+uvloop
