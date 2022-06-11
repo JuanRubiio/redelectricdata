@@ -6,7 +6,7 @@ log = logging.getLogger('uvicorn')
 
 class Settings(BaseSettings):
 
-    app_name:str = 'ConsumoElectrico'
+    app_name:str = 'Consumo Electrico'
     app_description:str = ''
     app_version:str = '0.0.1'
     app_host:str = '0.0.0.0'
