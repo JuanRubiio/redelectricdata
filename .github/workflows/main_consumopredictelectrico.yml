@@ -26,6 +26,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+        
+      - name: Install dependencies tensorflow
+        run: pip install -r tensorflow
       
       - name: Install dependencies
         run: pip install -r requirements.txt
