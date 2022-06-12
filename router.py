@@ -1,9 +1,8 @@
-from os import access
 from fastapi import APIRouter, Depends, HTTPException
 import crud, database, schema
 from auth.auth_bearer import JWTBearer
-from auth.auth_handler import decodeJWT, signJWT
-from fastapi import status
+from auth.auth_handler import signJWT
+
 
 api_router = APIRouter()
 
