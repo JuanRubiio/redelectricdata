@@ -27,9 +27,6 @@ jobs:
           python -m venv venv
           source venv/bin/activate
             
-      - name: Install dependencie tensorflow
-        run: pip install --no-cache-dir tensorflow
-              
       - name: Install dependencies
         run: pip install --no-cache-dir -r requirements.txt
         
