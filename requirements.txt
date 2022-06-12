@@ -39,5 +39,6 @@ typing-extensions==4.0.0
 urllib3==1.26.7
 uvicorn==0.15.0
 keras
+tensorflow
 pandas
 uvloop
