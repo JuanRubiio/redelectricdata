@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 import model, config, schema
-from keras import models
+'''from keras import models
 import pandas as pd
-from pickle import *
+from pickle import *'''
 
 
 settings = config.get_settings()
@@ -34,7 +34,7 @@ def getUserByEmail(db:Session, email:str):
     
 #------------------------------- PREDICCION ELECTRICA -------------------------------
     
-def predictLuz(co2:float, gas:float, brent:float):
+'''def predictLuz(co2:float, gas:float, brent:float):
     data = {'gas':  [gas],
         'co2': [co2],
         'brent': [brent],
@@ -53,7 +53,7 @@ def predictLuz(co2:float, gas:float, brent:float):
     predict = scalery.inverse_transform(n_predict)
 
     return {'Precio de la electricidad:': str(predict).replace("[", "").replace("]", "")+" €"}
-
+'''
 #------------------------------- CONSUMO_PREDICT -------------------------------
 
 def getConsumoPredict(db:Session, skip:int = 0, limit:int = 100):
