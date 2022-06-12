@@ -39,8 +39,58 @@ def getConsumoBySector(sector:str, skip:int, limit:int, accese_token:str = Depen
         if consumo: return consumo
         else: raise HTTPException(status_code=404, detail="Not consumo")
 
-@api_router.get("/prediccionElectrica", tags=["electricidad"], dependencies=[Depends(JWTBearer())])
+@api_router.get("/prediccionElectrica", tags=["Predicción precio electricidad"], dependencies=[Depends(JWTBearer())])
 def getPrediccionElectrica(co2:float, gas:float, brent:float, accese_token:str = Depends(JWTBearer())) -> dict:
     prediccion = crud.predictLuz(co2, gas, brent)
     if prediccion: return prediccion
     else: raise HTTPException(status_code=404, detail="Not prediccion")
+
+
+@api_router.get("/consumoPredict", tags=["consumo predict"], dependencies=[Depends(JWTBearer())])
+def getConsumoPredict(skip:int, limit:int, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getConsumoPredict(db, skip, limit)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not consumo")
+
+@api_router.get("/consumoPredictByPostal", tags=["consumo predict"], dependencies=[Depends(JWTBearer())])
+def getConsumoPredictByPostal(codPostal:str, skip:int, limit:int, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getConsumoPredictByPostal(db, codPostal, skip, limit)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not consumo")
+
+@api_router.get("/consumoPredictBySector", tags=["consumo predict"], dependencies=[Depends(JWTBearer())])
+def getConsumoPredictBySector(sector:str, skip:int, limit:int, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getConsumoPredictBySector(db, sector, skip, limit)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not consumo")
+
+@api_router.get("/empleo", tags=["empleo"], dependencies=[Depends(JWTBearer())])
+def getEmpleo(skip:int, limit:int, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getEmpleo(db, skip, limit)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not empleo")
+
+@api_router.get("/empleoByAñoTrimestreProvincia", tags=["empleo"], dependencies=[Depends(JWTBearer())])
+def getEmpleoByAñoTrimestreProvincia(año:str, trimestre:str, provincia:str, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getEmpleoByAñoTrimestreProvincia(db, año, trimestre, provincia)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not empleo")
+
+@api_router.get("/empleoByCCAA", tags=["empleo"], dependencies=[Depends(JWTBearer())])
+def getEmpleoByCCAA(ccaa:str, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getEmpleoByCCAA(db, ccaa)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not empleo")
+
+@api_router.get("/brent_gas_co2", tags=["brent gas co2"], dependencies=[Depends(JWTBearer())])
+def getElectricidadBrentCo2Gas(skip:int, limit:int, accese_token:str = Depends(JWTBearer())) -> dict:
+    with database.getSession() as db:
+        consumo = crud.getElectricidadBrentCo2Gas(db, skip, limit)
+        if consumo: return consumo
+        else: raise HTTPException(status_code=404, detail="Not empleo")
